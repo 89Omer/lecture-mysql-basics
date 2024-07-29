@@ -1,0 +1,16 @@
+#Cannot add or update a foreign key constraint
+
+When encountering the error "Cannot add or update a foreign key constraint," it generally means there's an issue with the foreign key references. This could be due to a variety of reasons such as:
+
+The referenced table or column does not exist.
+The data types of the foreign key and the referenced key do not match.
+There's existing data in the child table that violates the foreign key constraint.
+To troubleshoot and fix this issue, follow these steps:
+
+Ensure Referenced Tables and Columns Exist: Make sure that all the referenced tables and columns exist and are correctly spelled.
+
+Match Data Types: Verify that the data types of the foreign key columns match the data types of the referenced columns.
+
+Check Existing Data: Ensure there is no existing data in the child table that would violate the foreign key constraint.
+
+Resolution = 'SET Foreign_key_checks = 0;'
