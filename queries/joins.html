@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Joins Lecture</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .venn-diagram {
+            text-align: center;
+        }
+        svg {
+            width: 300px;
+            height: 200px;
+        }
+        .example-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        .example-table, .example-table th, .example-table td {
+            border: 1px solid #ddd;
+        }
+        .example-table th, .example-table td {
+            padding: 8px;
+            text-align: left;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lecture on SQL Joins</h1>
+
+    <h2>Introduction</h2>
+    <p>In SQL, joins are used to combine rows from two or more tables based on a related column between them. Joins help to retrieve data from multiple tables in a single query. There are several types of joins, each serving a different purpose.</p>
+
+    <h2>Types of Joins</h2>
+    <ol>
+        <li><strong>INNER JOIN</strong></li>
+        <li><strong>LEFT JOIN (LEFT OUTER JOIN)</strong></li>
+        <li><strong>RIGHT JOIN (RIGHT OUTER JOIN)</strong></li>
+        <li><strong>FULL JOIN (FULL OUTER JOIN)</strong></li>
+        <li><strong>CROSS JOIN</strong></li>
+    </ol>
+
+    <h2>Venn Diagrams</h2>
+    <p>Venn diagrams are useful for visualizing the relationships between different sets of data in joins.</p>
+
+    <h3>INNER JOIN</h3>
+    <div class="venn-diagram">
+        <svg>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="black" stroke-width="2"></circle>
+            <circle cx="200" cy="100" r="80" fill="none" stroke="black" stroke-width="2"></circle>
+            <text x="140" y="100" font-size="20" text-anchor="middle" fill="red" storke="none" >A ∩ B</text>
+        </svg>
+    </div>
+    <p>An <strong>INNER JOIN</strong> returns only the rows that have matching values in both tables.</p>
+    <h4>Example:</h4>
+    <p>Suppose we have two tables, <em>Students</em> and <em>Marks</em>.</p>
+    <table class="example-table">
+        <caption>Students Table</caption>
+        <tr>
+            <th>StudentID</th>
+            <th>StudentName</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Alice</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Bob</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Charlie</td>
+        </tr>
+    </table>
+
+    <table class="example-table">
+        <caption>Marks Table</caption>
+        <tr>
+            <th>StudentID</th>
+            <th>Marks</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>75</td>
+        </tr>
+    </table>
+
+    <pre>
+<code>
+SELECT Students.StudentName, Marks.Marks
+FROM Students
+INNER JOIN Marks ON Students.StudentID = Marks.StudentID;
+</code>
+    </pre>
+
+    <table class="example-table">
+        <caption>Result:</caption>
+        <tr>
+            <th>StudentName</th>
+            <th>Marks</th>
+        </tr>
+        <tr>
+            <td>Alice</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>Bob</td>
+            <td>90</td>
+        </tr>
+    </table>
+
+    <h3>LEFT JOIN</h3>
+    <div class="venn-diagram">
+        <svg>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="black" stroke-width="2"></circle>
+            <circle cx="200" cy="100" r="80" fill="none" stroke="black" stroke-width="2"></circle>
+            <path d="M20,100 A80,80 0 1,1 180,100 A80,80 0 0,1 20,100 Z" fill="lightgrey" stroke="none"></path>
+        </svg>
+    </div>
+    <p>A <strong>LEFT JOIN</strong> returns all rows from the left table and the matched rows from the right table. If there is no match, the result is NULL on the side of the right table.</p>
+    <h4>Example:</h4>
+    <pre>
+<code>
+SELECT Students.StudentName, Marks.Marks
+FROM Students
+LEFT JOIN Marks ON Students.StudentID = Marks.StudentID;
+</code>
+    </pre>
+
+    <table class="example-table">
+        <caption>Result:</caption>
+        <tr>
+            <th>StudentName</th>
+            <th>Marks</th>
+        </tr>
+        <tr>
+            <td>Alice</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>Bob</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>Charlie</td>
+            <td>NULL</td>
+        </tr>
+    </table>
+
+    <h3>RIGHT JOIN</h3>
+    <div class="venn-diagram">
+        <img src="https://www.sqlservertutorial.net/wp-content/uploads/SQL-Server-RIGHT-JOIN-Venn-Diagram.png" alt="RIGHT JOIN">
+    </div>
+    <p>A <strong>RIGHT JOIN</strong> returns all rows from the right table and the matched rows from the left table. If there is no match, the result is NULL on the side of the left table.</p>
+    <h4>Example:</h4>
+    <pre>
+<code>
+SELECT Students.StudentName, Marks.Marks
+FROM Students
+RIGHT JOIN Marks ON Students.StudentID = Marks.StudentID;
+</code>
+    </pre>
+
+    <table class="example-table">
+        <caption>Result:</caption>
+        <tr>
+            <th>StudentName</th>
+            <th>Marks</th>
+        </tr>
+        <tr>
+            <td>Alice</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>Bob</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>NULL</td>
+            <td>75</td>
+        </tr>
+    </table>
+
+    <h3>FULL JOIN</h3>
+    <div class="venn-diagram">
+        <svg>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="black" stroke-width="2"></circle>
+            <circle cx="200" cy="100" r="80" fill="none" stroke="black" stroke-width="2"></circle>
+            <path d="M20,100 A80,80 0 1,1 180,100 A80,80 0 0,1 20,100 Z" fill="lightgrey" stroke="none"></path>
+            <path d="M220,100 A80,80 0 1,1 380,100 A80,80 0 0,1 220,100 Z" fill="lightgrey" stroke="none" transform="translate(-100,0)"></path>
+        </svg>
+    </div>
+    <p>A <strong>FULL JOIN</strong> (or <strong>FULL OUTER JOIN</strong>) returns all rows when there is a match in one of the tables. If there is no match, the result is NULL from the side where there is no match.</p>
+    <h4>Example:</h4>
+    <pre>
+<code>
+SELECT Students.StudentName, Marks.Marks
+FROM Students
+FULL JOIN Marks ON Students.StudentID = Marks.StudentID;
+</code>
+    </pre>
+
+    <table class="example-table">
+        <caption>Result:</caption>
+        <tr>
+            <th>StudentName</th>
+            <th>Marks</th>
+        </tr>
+        <tr>
+            <td>Alice</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>Bob</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>Charlie</td>
+            <td>NULL</td>
+        </tr>
+        <tr>
+            <td>NULL</td>
+            <td>75</td>
+        </tr>
+    </table>
+
+    <h3>CROSS JOIN</h3>
+    <div class="venn-diagram">
+        <svg>
+            <circle cx="100" cy="100" r="80" fill="lightgrey" stroke="black" stroke-width="2"></circle>
+            <circle cx="200" cy="100" r="80" fill="lightgrey" stroke="black" stroke-width="2"></circle>
+        </svg>
+    </div>
+    <p>A <strong>CROSS JOIN</strong> returns the Cartesian product of the two tables, which means it returns all possible combinations of rows.</p>
+    <h4>Example:</h4>
+    <pre>
+<code>
+SELECT Students.StudentName, Marks.Marks
+FROM Students
+CROSS JOIN Marks;
+</code>
+    </pre>
+
+    <table class="example-table">
+        <caption>Result:</caption>
+        <tr>
+            <th>StudentName</th>
+            <th>Marks</th>
+        </tr>
+        <tr>
+            <td>Alice</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>Alice</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>Alice</td>
+            <td>75</td>
+        </tr>
+        <tr>
+            <td>Bob</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>Bob</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>Bob</td>
+            <td>75</td>
+        </tr>
+        <tr>
+            <td>Charlie</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>Charlie</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>Charlie</td>
+            <td>75</td>
+        </tr>
+    </table>
+
+    <h2>Summary</h2>
+    <ul>
+        <li><strong>INNER JOIN:</strong> Returns only the matching rows.</li>
+        <li><strong>LEFT JOIN:</strong> Returns all rows from the left table and matched rows from the right table.</li>
+        <li><strong>RIGHT JOIN:</strong> Returns all rows from the right table and matched rows from the left table.</li>
+        <li><strong>FULL JOIN:</strong> Returns all rows when there is a match in one of the tables.</li>
+        <li><strong>CROSS JOIN:</strong> Returns the Cartesian product of the two tables.</li>
+    </ul>
+
+   
+</body>
+</html>
