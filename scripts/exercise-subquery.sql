@@ -36,3 +36,13 @@ WHERE s.StudentID NOT IN (
     FROM Allocations a
 );
 
+--Find the courses where student scored the highest marks
+SELECT c.CourseName, s.StudentName, m.Marks
+FROM Courses c
+JOIN Marks m ON c.CourseID = m.CourseID
+JOIN Students s ON m.StudentID = s.StudentID
+WHERE m.Marks = (
+    SELECT MAX(m2.Marks)
+    FROM Marks m2
+    WHERE m2.CourseID = m.CourseID
+);
