@@ -45,17 +45,17 @@ To set up the database on your local machine, follow these steps:
 
 2. **Create the database and tables:**
     ```sh
-    mysql -u yourusername -p < create_tables.sql
+    mysql -u yourusername -p < create.sql
     ```
 
 3. **Insert sample data:**
     ```sh
-    mysql -u yourusername -p < insert_sample_data.sql
+    mysql -u yourusername -p < insert.sql
     ```
 
 ## Sample Data
 
-The repository includes sample data for testing and development purposes. The `insert_sample_data.sql` file contains SQL statements to populate the database with sample data.
+The repository includes sample data for testing and development purposes. The `insert.sql` file contains SQL statements to populate the database with sample data.
 
 ## Queries
 
