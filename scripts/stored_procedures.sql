@@ -47,6 +47,9 @@ BEGIN
     INTO v_StudentID, v_StudentName
     FROM Students
     WHERE StudentName = p_Username AND StudentPassword = p_Password;
+    -- Use Binary for exact matching
+    -- WHERE BINARY StudentName = p_Username AND BINARY StudentPassword = p_Password;
+
 
     IF v_StudentID IS NOT NULL THEN
         -- If login is successful, commit the transaction
