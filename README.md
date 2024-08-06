@@ -31,7 +31,7 @@ The database schema includes the following tables:
 
 ### Entity-Relationship Diagram (ERD)
 
-![ERD](data/UniversityDatabase.jpg) 
+![ERD](data/Updated_ERD.jpg) 
 
 ## Setup and Installation
 
